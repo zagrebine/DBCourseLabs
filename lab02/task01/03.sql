@@ -1,7 +1,8 @@
 USE AdventureWorksLT2019;
 
-SELECT TOP 10 PERCENT
+SELECT 
     Name, 
     ISNULL(Weight, 0) AS Weight 
 FROM SalesLT.Product
-ORDER BY Weight DESC;
+ORDER BY Weight DESC
+OFFSET 10 ROWS;
