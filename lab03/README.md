@@ -35,27 +35,11 @@
 * идентификатор заказа `SalesOrderID`;
 * итоговую стоимость заказа `TotalDue` из `SalesLT.SalesOrderHeader`.
 
-### Решение
-
-```sql
-SELECT
-    c.CompanyName,
-    soh.SalesOrderID,
-    soh.TotalDue
-FROM SalesLT.Customer AS c
-INNER JOIN SalesLT.SalesOrderHeader AS soh
-    ON c.CustomerID = soh.CustomerID;
-```
 
 ### Пояснение
 
 Таблица `SalesLT.Customer` содержит информацию о клиентах, а таблица `SalesLT.SalesOrderHeader` — информацию о заказах.
 
-Связь между таблицами осуществляется через поле:
-
-```text
-Customer.CustomerID = SalesOrderHeader.CustomerID
-```
 
 Используется `INNER JOIN`, поэтому в результат попадут только те клиенты, у которых есть заказы.
 
@@ -86,28 +70,6 @@ Customer.CustomerID = SalesOrderHeader.CustomerID
 
 При этом необходимо получить только адреса типа **Main Office**.
 
-### Решение
-
-```sql
-SELECT
-    c.CompanyName,
-    soh.SalesOrderID,
-    soh.TotalDue,
-    a.AddressLine1,
-    a.AddressLine2,
-    a.City,
-    a.StateProvince,
-    a.PostalCode,
-    a.CountryRegion
-FROM SalesLT.Customer AS c
-INNER JOIN SalesLT.SalesOrderHeader AS soh
-    ON c.CustomerID = soh.CustomerID
-INNER JOIN SalesLT.CustomerAddress AS ca
-    ON c.CustomerID = ca.CustomerID
-INNER JOIN SalesLT.Address AS a
-    ON ca.AddressID = a.AddressID
-WHERE ca.AddressType = 'Main Office';
-```
 
 ### Пояснение
 
@@ -127,29 +89,7 @@ CustomerAddress
 Address
 ```
 
-Поэтому используются два соединения:
 
-```sql
-INNER JOIN SalesLT.CustomerAddress AS ca
-    ON c.CustomerID = ca.CustomerID
-```
-
-и:
-
-```sql
-INNER JOIN SalesLT.Address AS a
-    ON ca.AddressID = a.AddressID
-```
-
-Условие:
-
-```sql
-WHERE ca.AddressType = 'Main Office'
-```
-
-оставляет только адрес главного офиса.
-
----
 
 # Задача 2. Получение данных по продажам
 
@@ -172,20 +112,6 @@ WHERE ca.AddressType = 'Main Office'
 * `SalesOrderID` должен быть `NULL`;
 * `TotalDue` должен быть `NULL`.
 
-### Решение
-
-```sql
-SELECT
-    c.CompanyName,
-    c.FirstName,
-    c.LastName,
-    soh.SalesOrderID,
-    soh.TotalDue
-FROM SalesLT.Customer AS c
-LEFT JOIN SalesLT.SalesOrderHeader AS soh
-    ON c.CustomerID = soh.CustomerID
-ORDER BY c.CompanyName;
-```
 
 ### Пояснение
 
@@ -226,20 +152,6 @@ No Orders Company  Anna       Brown      NULL           NULL
 * `LastName`
 * `Phone`
 
-### Решение
-
-```sql
-SELECT
-    c.CustomerID,
-    c.CompanyName,
-    c.FirstName,
-    c.LastName,
-    c.Phone
-FROM SalesLT.Customer AS c
-LEFT JOIN SalesLT.CustomerAddress AS ca
-    ON c.CustomerID = ca.CustomerID
-WHERE ca.CustomerID IS NULL;
-```
 
 ### Пояснение
 
@@ -288,27 +200,6 @@ CustomerID | ProductID
 NULL       | 999
 ```
 
-### Решение
-
-```sql
-SELECT
-    c.CustomerID,
-    NULL AS ProductID
-FROM SalesLT.Customer AS c
-LEFT JOIN SalesLT.SalesOrderHeader AS soh
-    ON c.CustomerID = soh.CustomerID
-WHERE soh.CustomerID IS NULL
-
-UNION
-
-SELECT
-    NULL AS CustomerID,
-    p.ProductID
-FROM SalesLT.Product AS p
-LEFT JOIN SalesLT.SalesOrderDetail AS sod
-    ON p.ProductID = sod.ProductID
-WHERE sod.ProductID IS NULL;
-```
 
 ### Пояснение
 
