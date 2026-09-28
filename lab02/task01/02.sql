@@ -2,6 +2,6 @@ USE AdventureWorksLT2019;
 
 SELECT TOP 10 PERCENT
     Name, 
-    ISNULL(Weight, 0) AS Weight 
+    Weight 
 FROM SalesLT.Product
 ORDER BY Weight DESC;
