@@ -5,7 +5,7 @@ SELECT
     ord.SalesOrderID,
     ord.TotalDue, 
     a.AddressLine1, 
-    ISNULL(a.AddressLine2, ''), 
+    a.AddressLine2, 
     a.City, 
     a.StateProvince, 
     a.PostalCode, 

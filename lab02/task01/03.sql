@@ -2,7 +2,7 @@ USE AdventureWorksLT2019;
 
 SELECT 
     Name, 
-    ISNULL(Weight, 0) AS Weight 
+    Weight
 FROM SalesLT.Product
 ORDER BY Weight DESC
-OFFSET 10 ROWS FETCH NEXT 90 ROWS ONLY;
+OFFSET 10 ROWS FETCH NEXT 100 ROWS ONLY;
