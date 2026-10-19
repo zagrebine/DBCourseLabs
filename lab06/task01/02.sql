@@ -1,0 +1,5 @@
+USE Lab6_DDL;
+GO
+
+CREATE SCHEMA lab6;
+GO
