@@ -1,6 +1,6 @@
 # Базы данных
 
-## Лабораторные и семинарские работы
+## Лабораторные работы
 
 **Студент:** Загребин Егор Денисович
 
@@ -14,7 +14,7 @@
 
 ## О репозитории
 
-Репозиторий содержит выполненные лабораторные и семинарские работы по дисциплине «Базы данных».
+Репозиторий содержит выполненные лабораторные работы по дисциплине «Базы данных».
 
 В рамках работ изучаются основы реляционных баз данных, язык SQL и его диалекты, создание и выполнение SQL-запросов, работа с таблицами и связями между ними, а также получение и обработка данных.
 
@@ -22,13 +22,13 @@
 
 ## Используемые технологии
 
-* **PostgreSQL 16**
-* **Microsoft SQL Server 2019**
-* **SQL / Transact-SQL (T-SQL)**
-* **Docker / Docker Desktop**
-* **Visual Studio Code**
-* **AdventureWorksLT**
-* **Git / GitHub**
+- **PostgreSQL 16**
+- **Microsoft SQL Server 2019**
+- **SQL / Transact-SQL (T-SQL)**
+- **Docker / Docker Desktop**
+- **Visual Studio Code**
+- **AdventureWorksLT**
+- **Git / GitHub**
 
 ---
 
@@ -47,9 +47,13 @@ DBCourseLabs/
 │   └── ...
 │
 ├── Lab04/
-│   └── utils/
-│       ├── adventureworks_lt_postgres.sql
-│       └── adventureworks_lt_postgres_data.sql
+│   └── ...
+│
+├── Lab05/
+│   └── ...
+│
+├── Lab06/
+│   └── ...
 │
 └── README.md
 ```
@@ -74,7 +78,8 @@ MacBook
     │   └── AdventureWorksLT
     │
     └── Microsoft SQL Server 2019
-        └── AdventureWorksLT
+        ├── AdventureWorksLT2019
+        └── Lab6_DDL
 ```
 
 PostgreSQL и Microsoft SQL Server используются как отдельные среды выполнения в зависимости от конкретной лабораторной работы.
