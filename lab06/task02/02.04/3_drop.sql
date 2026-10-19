@@ -1,0 +1,3 @@
+ALTER TABLE lab6.Customer
+DROP COLUMN Mobile;
+GO
