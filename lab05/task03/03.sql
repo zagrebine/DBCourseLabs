@@ -1,6 +1,5 @@
 USE AdventureWorksLT2019;
 
-
 SELECT
     p.Name,
     SUM(s.LineTotal) AS TotalRevenue
