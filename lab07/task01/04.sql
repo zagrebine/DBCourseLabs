@@ -1,4 +1,3 @@
-
 USE AdventureWorksLT2019;
 
 SELECT
@@ -7,7 +6,7 @@ SELECT
     c.ParentProductCategoryName AS ParentCategory,
     c.ProductCategoryName AS Category
 FROM SalesLT.Product AS p
-INNER JOIN dbo.ufnGetAllCategories() AS c
+LEFT JOIN dbo.ufnGetAllCategories() AS c
     ON p.ProductCategoryID = c.ProductCategoryID
 ORDER BY
     ParentCategory,

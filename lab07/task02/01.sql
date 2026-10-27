@@ -3,7 +3,7 @@ USE AdventureWorksLT2019;
 SELECT
     d.CompanyContact,
     SUM(d.TotalDue) AS Revenue
-FROM (
+FROM(
     SELECT
         c.CompanyName + ' (' + c.FirstName + ' ' + c.LastName + ')' AS CompanyContact,
         s.TotalDue
