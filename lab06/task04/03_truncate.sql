@@ -1,0 +1,5 @@
+USE Lab06;
+GO
+
+TRUNCATE TABLE lab06.Orders;
+GO

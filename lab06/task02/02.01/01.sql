@@ -1,7 +1,0 @@
-
-USE Lab6_DDL;
-GO
-
-ALTER TABLE lab6.Customer
-ADD Phone NVARCHAR(20) NULL;
-GO

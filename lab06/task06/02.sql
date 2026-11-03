@@ -1,4 +1,3 @@
-
 USE AdventureWorksLT2019;
 GO
 

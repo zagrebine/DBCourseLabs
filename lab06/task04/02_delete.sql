@@ -1,0 +1,5 @@
+USE Lab06;
+GO
+
+DELETE FROM lab06.AuditLog;
+GO

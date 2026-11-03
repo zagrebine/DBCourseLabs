@@ -1,5 +1,0 @@
-USE Lab6_DDL;
-GO
-
-TRUNCATE TABLE lab6.Orders;
-GO

@@ -1,0 +1,6 @@
+USE Lab06;
+GO
+
+ALTER TABLE lab06.Customer
+ADD Phone NVARCHAR(20) NULL;
+GO

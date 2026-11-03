@@ -1,20 +1,32 @@
-USE Lab6_DDL;
+USE Lab06;
 GO
 
-CREATE TABLE lab6.Customer
+CREATE TABLE lab06.Orders
 (
-    CustomerID INT NOT NULL,
-    Name NVARCHAR(100) NOT NULL,
-    City NVARCHAR(50) NOT NULL,
-    Email NVARCHAR(100) NULL,
-    CreatedAt DATETIME2 NOT NULL
-        CONSTRAINT DF_Customer_CreatedAt
-        DEFAULT SYSDATETIME(),
+    OrderID INT IDENTITY(1,1) NOT NULL
+        CONSTRAINT PK_Orders PRIMARY KEY,
+    OrderDate DATE NOT NULL
+        CONSTRAINT DF_Orders_OrderDate
+        DEFAULT CAST(GETDATE() AS DATE),
+    CustomerID INT NOT NULL
+        CONSTRAINT FK_Orders_Customer
+        REFERENCES lab06.Customer(CustomerID)
+);
+GO
 
-    CONSTRAINT PK_Customer
-        PRIMARY KEY (CustomerID),
-
-    CONSTRAINT UQ_Customer_Email
-        UNIQUE (Email)
+CREATE TABLE lab06.OrderLine
+(
+    OrderID INT NOT NULL
+        CONSTRAINT FK_OrderLine_Orders
+        REFERENCES lab06.Orders(OrderID)
+        ON DELETE CASCADE,
+    ProductID INT NOT NULL
+        CONSTRAINT FK_OrderLine_Product
+        REFERENCES lab06.Product(ProductID),
+    Qty INT NOT NULL
+        CONSTRAINT CK_OrderLine_Qty CHECK (Qty > 0),
+    
+    CONSTRAINT PK_OrderLine
+        PRIMARY KEY (OrderID, ProductID)
 );
 GO
