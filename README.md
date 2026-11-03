@@ -52,7 +52,10 @@ DBCourseLabs/
 ├── Lab05/
 │   └── ...
 │
-├── Lab06/
+├── lab06/
+│   └── ...
+│
+├── lab07/
 │   └── ...
 │
 └── README.md
@@ -79,7 +82,7 @@ MacBook
     │
     └── Microsoft SQL Server 2019
         ├── AdventureWorksLT2019
-        └── Lab6_DDL
+        └── Lab06
 ```
 
 PostgreSQL и Microsoft SQL Server используются как отдельные среды выполнения в зависимости от конкретной лабораторной работы.
