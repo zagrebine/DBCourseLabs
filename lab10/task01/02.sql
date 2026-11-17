@@ -11,11 +11,9 @@ BEGIN TRY
     )
         THROW 50001, 'Заказ не существует', 1;
 
-    DELETE FROM SalesLT.SalesOrderDetail
-    WHERE SalesOrderID = @SalesOrderID;
+    DELETE FROM SalesLT.SalesOrderDetail WHERE SalesOrderID = @SalesOrderID;
 
-    DELETE FROM SalesLT.SalesOrderHeader
-    WHERE SalesOrderID = @SalesOrderID;
+    DELETE FROM SalesLT.SalesOrderHeader WHERE SalesOrderID = @SalesOrderID;
 END TRY
 BEGIN CATCH
     PRINT ERROR_MESSAGE();

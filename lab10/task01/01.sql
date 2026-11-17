@@ -10,8 +10,6 @@ IF NOT EXISTS (
 )
     THROW 50001, 'Заказ не существует', 1;
 
-DELETE FROM SalesLT.SalesOrderDetail
-WHERE SalesOrderID = @SalesOrderID;
+DELETE FROM SalesLT.SalesOrderDetail WHERE SalesOrderID = @SalesOrderID;
 
-DELETE FROM SalesLT.SalesOrderHeader
-WHERE SalesOrderID = @SalesOrderID;
+DELETE FROM SalesLT.SalesOrderHeader WHERE SalesOrderID = @SalesOrderID;

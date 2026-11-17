@@ -5,13 +5,11 @@ DECLARE @SalesOrderID int = 71774;
 BEGIN TRY
     BEGIN TRANSACTION;
 
-    DELETE FROM SalesLT.SalesOrderDetail
-    WHERE SalesOrderID = @SalesOrderID;
+    DELETE FROM SalesLT.SalesOrderDetail WHERE SalesOrderID = @SalesOrderID;
 
-    THROW 50001, 'Test error', 1;
+    THROW 50001, 'Ошибка 1', 1;
 
-    DELETE FROM SalesLT.SalesOrderHeader
-    WHERE SalesOrderID = @SalesOrderID;
+    DELETE FROM SalesLT.SalesOrderHeader WHERE SalesOrderID = @SalesOrderID;
 
     COMMIT TRANSACTION;
 END TRY
