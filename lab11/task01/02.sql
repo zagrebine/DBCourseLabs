@@ -22,8 +22,10 @@ FETCH NEXT FROM ColumnCursor INTO @ColumnName;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @Condition = @Condition +
-        CASE WHEN @Condition = '' THEN '' ELSE ' OR ' END + @ColumnName + ' LIKE ''%' + @SearchValue + '%''';
+    SET @Condition = @Condition 
+        + CASE WHEN @Condition = '' THEN '' ELSE ' OR ' END 
+        + @ColumnName 
+        + ' LIKE ''%' + @SearchValue + '%''';
     FETCH NEXT FROM ColumnCursor INTO @ColumnName;
 END;
 
