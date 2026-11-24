@@ -13,20 +13,17 @@ BEGIN
     DECLARE @TableName SYSNAME;
     DECLARE @Count INT;
 
-    DECLARE c1 CURSOR LOCAL FAST_FORWARD
-    FOR
-        SELECT TABLE_SCHEMA, TABLE_NAME
-        FROM INFORMATION_SCHEMA.TABLES
-        WHERE TABLE_TYPE = 'BASE TABLE';
+    DECLARE c2 CURSOR FOR
+    SELECT TABLE_SCHEMA, TABLE_NAME
+    FROM INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_TYPE = 'BASE TABLE';
 
-    OPEN c1;
+    OPEN c2;
 
-    WHILE (1=1)
+    FETCH NEXT FROM c2 INTO @SchemaName, @TableName;
+
+    WHILE @@FETCH_STATUS = 0
     BEGIN
-        FETCH NEXT FROM c1 INTO @SchemaName, @TableName;
-
-        IF @@FETCH_STATUS <> 0 BREAK;
-
         EXEC @Count = SalesLT.uspFindStringInTable
             @schema = @SchemaName,
             @table = @TableName,
@@ -38,9 +35,11 @@ BEGIN
         ELSE
             PRINT N'В таблице ' + @SchemaName + N'.' + @TableName
                 + N' найдено строк: ' + CAST(@Count AS NVARCHAR(10));
+
+        FETCH NEXT FROM c2 INTO @SchemaName, @TableName;
     END;
 
-    CLOSE c1;
-    DEALLOCATE c1;
+    CLOSE c2;
+    DEALLOCATE c2;
 END;
 GO

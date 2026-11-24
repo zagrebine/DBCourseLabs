@@ -13,31 +13,27 @@ AS
 BEGIN
     DECLARE @ColumnName SYSNAME;
     DECLARE @Condition NVARCHAR(MAX) = N'';
-    DECLARE @SQL NVARCHAR(MAX);
-    DECLARE @Count INT;
+    DECLARE @SQL NVARCHAR(MAX) = N'';
 
-    DECLARE c1 CURSOR LOCAL FAST_FORWARD
-    FOR
-        SELECT COLUMN_NAME
-        FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_SCHEMA = @schema
-          AND TABLE_NAME = @table
-          AND DATA_TYPE IN ('char', 'nchar', 'varchar', 'nvarchar', 'text', 'ntext');
+    DECLARE c1 CURSOR FOR
+    SELECT COLUMN_NAME
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_NAME = @table
+    AND TABLE_SCHEMA = @schema
+    AND DATA_TYPE IN ('char', 'nchar', 'varchar', 'nvarchar', 'text', 'ntext');
 
     OPEN c1;
 
-    WHILE (1=1)
+    FETCH NEXT FROM c1 INTO @ColumnName;
+
+    WHILE @@FETCH_STATUS = 0
     BEGIN
-        FETCH NEXT FROM c1 INTO @ColumnName;
-
-        IF @@FETCH_STATUS <> 0 BREAK;
-
-        IF @Condition <> N''
-            SET @Condition = @Condition + N' OR ';
-
         SET @Condition = @Condition +
+            CASE WHEN @Condition = N'' THEN N'' ELSE N' OR ' END +
             N'CAST(' + QUOTENAME(@ColumnName) +
             N' AS NVARCHAR(MAX)) LIKE N''%'' + @stringToFind + N''%''';
+
+        FETCH NEXT FROM c1 INTO @ColumnName;
     END;
 
     CLOSE c1;
@@ -46,13 +42,15 @@ BEGIN
     IF @Condition = N'' RETURN 0;
 
     SET @SQL = N'
-        SELECT @Count = COUNT(*)
+        SELECT *
         FROM ' + QUOTENAME(@schema) + N'.' + QUOTENAME(@table) + N'
         WHERE ' + @Condition + N';
 
-        SELECT *
+        SELECT @Count = COUNT(*)
         FROM ' + QUOTENAME(@schema) + N'.' + QUOTENAME(@table) + N'
         WHERE ' + @Condition;
+
+    DECLARE @Count INT;
 
     EXEC sp_executesql
         @SQL,
